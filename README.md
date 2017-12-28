@@ -10,4 +10,4 @@ Features :
   <li> Distint Logins for Cashier and Manager.
 </ul>
 <hr>
-For changes and help, Contact : <a href="mailto:vanshg395@gmail.com">vanshg395@gmail.com</a>
+For changes and help, Contact : <a href="mailto:vanshg395@gmail.com?subject=Help%20for%20customising%20pyBills.">vanshg395@gmail.com</a>
