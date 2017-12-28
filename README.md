@@ -9,5 +9,5 @@ Features :
   <li> Gives access to view any previous bill.
   <li> Distint Logins for Cashier and Manager.
   <hr>
-   </ul>
+</ul>
 For changes and help, Contact : vanshg395@gmail.com
