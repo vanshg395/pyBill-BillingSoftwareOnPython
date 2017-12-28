@@ -10,4 +10,4 @@ Features :
   <li> Distint Logins for Cashier and Manager.
 </ul>
 <hr>
-For changes and help, Contact : vanshg395@gmail.com
+For changes and help, Contact : <a href="mailto:vanshg395@gmail.com?subject=Email%20Subject">vanshg395@gmail.com</a>
