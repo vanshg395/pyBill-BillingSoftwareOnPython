@@ -8,6 +8,6 @@ Features :
   <li> Gives rights to create bill to both cashier and manager.
   <li> Gives access to view any previous bill.
   <li> Distint Logins for Cashier and Manager.
-  <hr>
 </ul>
+<hr>
 For changes and help, Contact : vanshg395@gmail.com
