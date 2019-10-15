@@ -731,13 +731,13 @@ body.pack(side = TOP , fill = BOTH , expand = True)
 welcome = Label(body , text = "Welcome to Manager Account" , font = ("Arial" , 40))
 welcome.place(x = 350 , y = 300)
 
-username = open("temp" , "r").read()
+# username = open("temp" , "r").read()
 
 logout = Button(root , text = "Logout" , command = signout , width = 10)
 logout.place(rely = 0, relx = 1, x = 0, y = 0, anchor=NE)
 
-userLabel = Label(root , text = username , font = ("Arial" , 14) , bg = "white" , foreground = "blue")
-userLabel.place(rely = 0, relx = 1, x = -120, y = 3, anchor=NE)
+# userLabel = Label(root , text = username , font = ("Arial" , 14) , bg = "white" , foreground = "blue")
+# userLabel.place(rely = 0, relx = 1, x = -120, y = 3, anchor=NE)
 
 items = Button(head , text = "Inventory" , width = 30 , command = addItemLayout)
 items.place(x = 0)
