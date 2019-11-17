@@ -1,4 +1,14 @@
-# main
+
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="",
+  database="pyBill"
+)
+
+mycursor = mydb.cursor()
 
 from Tkinter import *
 import tkMessageBox , pickle
@@ -23,34 +33,34 @@ def users() :
         cashier = userList[1]
 
 def signIn(username , password) :
-        users()
-        if username in manager.keys() :
-                if password == manager[username] :
-                        open("temp" , "w").write(username)
-                        tkMessageBox.showinfo("Login Status", "Login Successful")
-                        userText.delete(0, END)
-                        passText.delete(0, END)
-                        root.destroy()
-                        import managerAccount
-                else :
-                        tkMessageBox.showinfo("Login Status", "Invalid Username/Password! Please Try Again.")
-                        passText.delete(0 , END)
-        elif username in cashier.keys() :
-                if password == cashier[username] :
-                        open("temp" , "w").write(username)
-                        tkMessageBox.showinfo("Login Status", "Login Successful")
-                        userText.delete(0, END)
-                        passText.delete(0, END)
-                        root.destroy()
-                        import cashierAccount
-                else :
-                        tkMessageBox.showinfo("Login Status", "Invalid Username/Password! Please Try Again.")
-                        passText.delete(0 , END)
-        else :
-                tkMessageBox.showinfo("Login Status", "This Username Doesn't Exist. Please Create An Account!")
-                userText.delete(0, END)
-                passText.delete(0, END)               
-                        
+        mycursor = mydb.cursor()
+        sql = "SELECT password, userType FROM Users WHERE username = %s" 
+        val = (username,)
+        mycursor.execute(sql, val)
+        results = mycursor.fetchall()
+        if (password == results[0][0]):
+            if (results[0][1] == 1):
+                open("temp" , "w").write(username)
+                import managerAccount
+            elif (results[0][1] == 2):
+                open("temp" , "w").write(username)
+                import cashierAccount
+        
+
+def insert(username, password, userType):
+        sql = "INSERT INTO Users (username, password, userType) VALUES (%s, %s, %s)"
+        val = (username, password, userType)
+        try:
+            mycursor.execute(sql, val)
+            tkMessageBox.showinfo("Login Status", "Congratulations! You Have Successfully Registered.")
+        except:
+            tkMessageBox.showinfo("Login Status", "Username already exists.")
+        mydb.commit()
+        regUserText.delete(0 , END)
+        regPassText.delete(0 , END)
+        regConPassText.delete(0 , END)
+        passStrength.config(text = "")
+
 def register(username , password ,confirmPassword , userType) :
     if username == "" or password == "":
         tkMessageBox.showinfo("Login Status", "Please Enter Username And Password.")
@@ -58,24 +68,20 @@ def register(username , password ,confirmPassword , userType) :
         if len(regPassText.get()) >= 7 :
             if password == confirmPassword :
                     users()
-                    if username in (manager.keys() or cashier.keys()):
-                            tkMessageBox.showinfo("Login Status", "This Username Already Exists. Please Try Again!")
-                    elif  userType == 1 :
+                    if  userType == 1 :
                             manager[username] = password
-                            tkMessageBox.showinfo("Login Status", "Congratulations! You Have Successfully Registered As A Manager.")
                             userList[0] = manager
-                            pickle.dump(userList , open("login.dat" , "wb"))                        
+                            insert(username, password, userType)
                     elif userType == 2 :
                             cashier[username] = password
-                            tkMessageBox.showinfo("Login Status", "Congratulations! You Have Successfully Registered As A Cashier.")
                             userList[1] = cashier
-                            pickle.dump(userList , open("login.dat" , "wb"))
+                            insert(username, password, userType)
                     else:
                             tkMessageBox.showinfo("Login Status", "Please Choose Out Of Cashier/Manager")
-                    regUserText.delete(0 , END)
-                    regPassText.delete(0 , END)
-                    regConPassText.delete(0 , END)
-                    passStrength.config(text = "")
+                            regUserText.delete(0 , END)
+                            regPassText.delete(0 , END)
+                            regConPassText.delete(0 , END)
+                            passStrength.config(text = "")
 
             else :
                     tkMessageBox.showinfo("Error", "Passwords Do Not Match.")
