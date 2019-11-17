@@ -1,4 +1,3 @@
-# main
 
 import mysql.connector
 
@@ -13,7 +12,6 @@ mycursor = mydb.cursor()
 
 from Tkinter import *
 import tkMessageBox , pickle
-# import dbconnect
 
 class iteminfo(object):
     def __init__(self):
@@ -35,45 +33,17 @@ def users() :
         cashier = userList[1]
 
 def signIn(username , password) :
-        # if username in manager.keys() :
-        #         if password == manager[username] :
-        #                 open("temp" , "w").write(username)
-        #                 tkMessageBox.showinfo("Login Status", "Login Successful")
-        #                 userText.delete(0, END)
-        #                 passText.delete(0, END)
-        #                 root.destroy()
-        #                 import managerAccount
-        #         else :
-        #                 tkMessageBox.showinfo("Login Status", "Invalid Username/Password! Please Try Again.")
-        #                 passText.delete(0 , END)
-        # elif username in cashier.keys() :
-        #         if password == cashier[username] :
-        #                 open("temp" , "w").write(username)
-        #                 tkMessageBox.showinfo("Login Status", "Login Successful")
-        #                 userText.delete(0, END)
-        #                 passText.delete(0, END)
-        #                 root.destroy()
-        #                 import cashierAccount
-        #         else :
-        #                 tkMessageBox.showinfo("Login Status", "Invalid Username/Password! Please Try Again.")
-        #                 passText.delete(0 , END)
-        # else :
-        #         tkMessageBox.showinfo("Login Status", "This Username Doesn't Exist. Please Create An Account!")
-        #         userText.delete(0, END)
-        #         passText.delete(0, END)     
-        # 
-        
         mycursor = mydb.cursor()
-        sql = "SELECT password, userType FROM Users WHERE username = %s" # INSERT INTO Users (username, password, userType) VALUES (%s, %s, %s)"
+        sql = "SELECT password, userType FROM Users WHERE username = %s" 
         val = (username,)
         mycursor.execute(sql, val)
         results = mycursor.fetchall()
         if (password == results[0][0]):
             if (results[0][1] == 1):
-                print("cashier is logged in")
+                open("temp" , "w").write(username)
                 import managerAccount
             elif (results[0][1] == 2):
-                print("manager is loggeed in")
+                open("temp" , "w").write(username)
                 import cashierAccount
         
 
